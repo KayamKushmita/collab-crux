@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collab Crux</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url(bgimg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 2px solid #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff; /* Ensure logo text is white */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #007BFF;
+        }
+
+        .sign-in {
+            padding: 10px 20px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .sign-in:hover {
+            background-color: #0056b3;
+        }
+
+        .login-container {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+        }
+
+        .login-container h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .login-container label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #fff;
+        }
+
+        .login-container input[type="text"], 
+        .login-container input[type="password"] {
+            width: calc(100% - 20px); /* Adjust width to fit padding */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #000; /* Text color inside inputs */
+        }
+
+        .login-container .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .login-container .login-options label {
+            flex: 1;
+        }
+
+        .login-container .login-options input {
+            margin-right: 5px;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .dashboard {
+            display: none;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            color: #000; /* Text color inside dashboard */
+        }
+
+        .dashboard ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard h3 {
+            margin-top: 0;
+        }
+
+        .dashboard .filters,
+        .dashboard .perks-about,
+        .dashboard .chat-section {
+            margin-bottom: 20px;
+        }
+
+        .dashboard .filters h3,
+        .dashboard .perks-about h3,
+        .dashboard .chat-section h3 {
+            margin-top: 0;
+        }
+
+        .dashboard .filter-section {
+            margin-bottom: 10px;
+        }
+
+        .dashboard .filter-section h4 {
+            margin-top: 0;
+        }
+
+        .dashboard .filter-section label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .dashboard .perks-about,
+        .dashboard .chat-section {
+            display: flex;
+            gap: 20px;
+        }
+
+        .dashboard .perks-about .section,
+        .dashboard .chat-section .section {
+            flex: 1;
+        }
+
+        .dashboard .perks-about ul,
+        .dashboard .chat-section ul {
+            padding-left: 20px;
+        }
+
+        .logout-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        .company-logos {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .company-logos img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Collab Crux</div>
+        <nav class="nav-links">
+            <a href="#find-work">Find Work</a>
+            <a href="#find-professionals">Find Professionals</a>
+            <a href="#update-projects">Update Projects</a>
+            <a href="#about-us">About Us</a>
+        </nav>
+        <a href="#sign-in" class="sign-in">Sign In</a>
+    </header>
+
+    <div class="login-container">
+        <h2>Account Sign In</h2>
+        <div class="login-options">
+            <label>
+                <input type="radio" name="user-type" value="professional"> Professional
+            </label>
+            <label>
+                <input type="radio" name="user-type" value="client"> Client
+            </label>
+        </div>
+        <label for="email">Email Address</label>
+        <input type="text" id="email" name="email">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Login</button>
+    </div>
+
+    <div class="dashboard" id="dashboard">
+        <h3>Welcome to Collab Crux Dashboard</h3>
+
+        <div class="filters">
+            <h3>Dashboard Filters</h3>
+            <div class="filter-section">
+                <h4>Job Type:</h4>
+                <label><input type="checkbox"> Full Time</label>
+                <label><input type="checkbox"> Part Time</label>
+                <label><input type="checkbox"> Remote</label>
+                <label><input type="checkbox"> Hybrid</label>
+            </div>
+            <div class="filter-section">
+                <h4>Experience:</h4>
+                <label><input type="checkbox"> New</label>
+                <label><input type="checkbox"> Beginner</label>
+                <label><input type="checkbox"> Intermediate</label>
+                <label><input type="checkbox"> Advanced</label>
+            </div>
+            <div class="filter-section">
+                <h4>Project Type:</h4>
+                <label><input type="checkbox"> Front End</label>
+                <label><input type="checkbox"> Backend</label>
+                <label><input type="checkbox"> Data Analysis</label>
+            </div>
+            <div class="filter-section">
+                <h4>Duration:</h4>
+                <label><input type="checkbox"> 1 Month</label>
+                <label><input type="checkbox"> 6 Months</label>
+                <label><input type="checkbox"> 1 Year</label>
+            </div>
+        </div>
+
+        <div class="perks-about">
+            <div class="section">
+                <h3>Perks</h3>
+                <ul>
+                    <li>Flexible Work Hours</li>
+                    <li>Competitive Salary</li>
+                    <li>Remote Work Options</li>
+                    <li>Professional Development</li>
+                    <li>Health Benefits</li>
+                </ul>
+            </div>
+            <div class="section">
+                <h3>About the Companies</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, lectus vel tincidunt dictum, purus dolor convallis velit, at ultricies magna odio nec eros.</p>
+                <p>Nulla consequat massa quis nulla sagittis, id sollicitudin arcu pulvinar. Nunc id quam libero. Duis hendrerit, orci nec malesuada
+                    sollicitudin, augue elit malesuada felis, id ullamcorper ligula est vel justo.</p>
+                </div>
+            </div>
+    
+            <div class="chat-section">
+                <h3>Recent Chats</h3>
+                <ul>
+                    <li>Client A</li>
+                    <li>Client B</li>
+                    <li>Client C</li>
+                </ul>
+            </div>
+    
+            <div class="company-logos">
+                <img src="company1.jpg" alt="Company 1">
+                <img src="company2.jpg" alt="Company 2">
+                <img src="company3.jpg" alt="Company 3">
+                <!-- Add more company logos as needed -->
+            </div>
+    
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const loginContainer = document.querySelector('.login-container');
+                const dashboard = document.getElementById('dashboard');
+                const emailInput = document.getElementById('email');
+                const passwordInput = document.getElementById('password');
+                const userTypeRadios = document.querySelectorAll('input[name="user-type"]');
+                const loginButton = loginContainer.querySelector('button');
+                const logoutButton = document.getElementById('logoutBtn');
+                const projectList = document.getElementById('projectList');
+                const clientList = document.getElementById('clientList');
+    
+                function validateUser(email, password, userType) {
+                    // Simulated user data
+                    const professionalUser = { email: 'sarah@gmail.com', password: '12345678', userType: 'professional' };
+                    const clientUser = { email: 'vignesh@gmail.com', password: '12345678', userType: 'client' };
+    
+                    // Check user type and validate credentials
+                    if (userType === 'professional' && email === professionalUser.email && password === professionalUser.password) {
+                        return true;
+                    } else if (userType === 'client' && email === clientUser.email && password === clientUser.password) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+    
+                function displayDashboard() {
+                    loginContainer.style.display = 'none';
+                    dashboard.style.display = 'block';
+    
+                    // Simulated data for projects and clients
+                    const projects = ['Project A', 'Project B', 'Project C'];
+                    const clients = ['Client X', 'Client Y', 'Client Z'];
+    
+                    // Display projects
+                    projects.forEach(project => {
+                        const li = document.createElement('li');
+                        li.textContent = project;
+                        projectList.appendChild(li);
+                    });
+    
+                    // Display clients
+                    clients.forEach(client => {
+                        const li = document.createElement('li');
+                        li.textContent = client;
+                        clientList.appendChild(li);
+                    });
+                }
+    
+                loginButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+    
+                    const email = emailInput.value.trim();
+                    const password = passwordInput.value.trim();
+                    const userType = getUserType();
+    
+                    if (!email || !password || !userType) {
+                        alert('Please fill in all fields and select a user type.');
+                        return;
+                    }
+    
+                    if (validateUser(email, password, userType)) {
+                        displayDashboard();
+                    } else {
+                        alert('Invalid credentials. Please try again.');
+                    }
+                });
+    
+                logoutButton.addEventListener('click', function() {
+                    dashboard.style.display = 'none';
+                    loginContainer.style.display = 'block';
+                    emailInput.value = '';
+                    passwordInput.value = '';
+                    userTypeRadios.forEach(radio => {
+                        radio.checked = false;
+                    });
+                    projectList.innerHTML = ''; // Clear projects list
+                    clientList.innerHTML = ''; // Clear clients list
+                });
+    
+                function getUserType() {
+                    for (const radio of userTypeRadios) {
+                        if (radio.checked) {
+                            return radio.value;
+                        }
+                    }
+                    return null;
+                }
+            });
+        </script>
+    </body>
+    </html>
+    
